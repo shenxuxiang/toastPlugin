@@ -1,0 +1,69 @@
+@font-face {font-family: "iconfont";
+  src: url('./font/iconfont.eot?t=1502866992959'); /* IE9*/
+  src: url('./font/iconfont.eot?t=1502866992959#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('./font/iconfont.woff?t=1502866992959') format('woff'), /* chrome, firefox */
+  url('./font/iconfont.ttf?t=1502866992959') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('./font/iconfont.svg?t=1502866992959#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-error:before { content: "\e669"; }
+
+.icon-success:before { content: "\e677"; }
+
+.icon-warning:before { content: "\e656"; }
+
+.toast-box {
+    position: fixed;
+    top: 35%;
+    width: 100%;
+}
+.toast-box-content {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.toast-box-content.leave {
+    opacity: 0;
+    transition: all .3s;
+}
+.toast-box-content-con {
+    max-width: 6rem;
+    padding: .2667rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background: rgba(0,0,0,.8);
+}
+.toast-box-content-con.hasIcon {
+    width: 2.6rem;
+    height: 1.8rem;
+    font-size: .6rem;
+    color: #fff;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.toast-box-content-con-icon {
+    width: 100%;
+    text-align: center;
+    color: #ccc;
+}
+.toast-box-content-con-txt {
+    text-align: center;
+    color: #ccc;
+    font-size: .32rem;
+}
