@@ -1,42 +1,38 @@
 import './style.css'
 import React from 'react'
 import Notification from './notification.jsx'
-
 let newNotification
-const getNotification = () => {
+
+const getNewNotification = () => {
     if (!newNotification) {
         newNotification = Notification.reWrite()
     }
-    return newNotification
+    return newNotification 
 }
 
-const notice = (content, duration = 3000, onClose, type, icon, mask = false) => {
-    const notificationInit = getNotification()
+const notice = (content, duration, onClose, type, icon, mask = false) => {
+    let notificationInit = getNewNotification()
     notificationInit.notice({
         duration,
-        mask,
         onClose,
-        content: type === 'show' ? (
+        mask,
+        content: !! icon ? (
             <div
-                className="toast-box-content-con"
+                className={type === 'show' ? 'toast-box-content' : 'toast-box-content hasIcon'}
             >
-                <div className="toast-box-content-con-txt">
-                    {content}
+                <div className="toast-box-content-icon">
+                    <i
+                        style={{fontSize: '24px'}}
+                        className={'iconfont icon-' + icon}
+                    ></i>
                 </div>
+                <div className="toast-box-content-txt">{content}</div>
             </div>
         ) : (
             <div
-                className="toast-box-content-con hasIcon"
+                className={type === 'show' ? 'toast-box-content' : 'toast-box-content hasIcon'}
             >
-                <div className="toast-box-content-con-icon">
-                    <i
-                        className={'iconfont icon-'  + icon}
-                        style={{fontSize: '24px'}}
-                    ></i>
-                </div>
-                <div className="toast-box-content-con-txt">
-                    {content}
-                </div>
+                <div className="toast-box-content-txt">{content}</div>
             </div>
         )
     })
@@ -44,7 +40,7 @@ const notice = (content, duration = 3000, onClose, type, icon, mask = false) => 
 
 export default {
     show (content, duration, onClose, mask) {
-        return notice(content, duration, onClose, 'show', 'show', mask)
+        return notice(content, duration, onClose, 'show', null, mask)
     },
     success (content, duration, onClose, mask) {
         return notice(content, duration, onClose, 'success', 'success', mask)
@@ -55,10 +51,15 @@ export default {
     error (content, duration, onClose, mask) {
         return notice(content, duration, onClose, 'error', 'error', mask)
     },
-    hide () { // 销毁
+    hide () {
         if (newNotification) {
             newNotification.destory()
-            newNotification = null
+            newNotification = null 
         }
     }
+
 }
+
+
+
+

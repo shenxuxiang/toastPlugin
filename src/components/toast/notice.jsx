@@ -1,40 +1,49 @@
-import React, { Component } from 'react'
-import pureRenderMixin from 'react-addons-pure-render-mixin'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 
-export default
-class Notice extends Component {
+export default class Notice extends PureComponent {
+    static propTypes = {
+        emitCloseToast: PropTypes.func,
+        duration: PropTypes.number,
+        content: PropTypes.any, // Notice显示的内容
+    }
+    static defaultProps = {
+        emitCloseToast: null,
+        duration: 3000
+    }
     constructor () {
         super()
         this.state = {
-            leaveAnimation: false // 是否开始结束动画
+            leaveAnimationStart: false
         }
-        this.shouldComponentUpdate = pureRenderMixin.shouldComponentUpdate.bind(this)
     }
     componentDidMount () {
-        this.interval = setTimeout(() => {
-            this.close()
+        this.interVal = setTimeout (() => {
+            this.onClose()
         }, this.props.duration - 300)
     }
     componentWillUnmount () {
         this.clearTimer()
     }
     clearTimer () {
-        clearTimeout(this.interval)
-        this.interval = null
+        if (this.interVal) {
+            clearTimeout(this.interVal)
+            this.interVal = null
+        }
     }
-    close () {
+    onClose () {
         this.clearTimer()
-        this.setState({leaveAnimation: true})
+        this.setState({leaveAnimationStart: true})
         this.timer = setTimeout(() => {
-            this.props.onCloseToast()
             clearTimeout(this.timer)
             this.timer = null
+            this.props.emitCloseToast && this.props.emitCloseToast()
         }, 300)
     }
     render () {
         return (
             <div
-                className={this.state.leaveAnimation ? 'toast-box-content leave' : 'toast-box-content'}
+                className={this.state.leaveAnimationStart ? 'toast-box-txt leave' : 'toast-box-txt'}
             >
                 {this.props.content}
             </div>
